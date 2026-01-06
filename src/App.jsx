@@ -1,12 +1,11 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <Form
+      <Section
         title="General information"
         inputs={[
           {
@@ -31,8 +30,8 @@ function App() {
             id: "phone",
           },
         ]}
-      ></Form>
-      <Form
+      ></Section>
+      <Section
         title="Education"
         inputs={[
           {
@@ -64,8 +63,8 @@ function App() {
             id: "school-end",
           },
         ]}
-      ></Form>
-      <Form
+      ></Section>
+      <Section
         title="Professional Experience"
         inputs={[
           {
@@ -104,12 +103,12 @@ function App() {
             id: "job-end-date",
           },
         ]}
-      ></Form>
+      ></Section>
     </div>
   );
 }
 
-function Form({ title, inputs }) {
+function Section({ title, inputs }) {
   const [isDisabled, setIsDisabled] = useState(false);
   function handleSubmit(e) {
     e.preventDefault();
@@ -118,32 +117,36 @@ function Form({ title, inputs }) {
   function handleEdit(e) {
     setIsDisabled(false);
   }
-
-  return (
-    <form action="" autoComplete="on" onSubmit={handleSubmit}>
-      <fieldset>
-        <legend>{title}</legend>
-        {inputs.map((item, index) => {
-          if (item.tag === "textarea") {
+  
+  
+    return (
+      <form action="" autoComplete="on" onSubmit={handleSubmit}>
+        <fieldset>
+          <legend>{title}</legend>
+          {inputs.map((item, index) => {
+            if (item.tag === "textarea") {
+              return (
+                <TextArea
+                  {...item}
+                  key={index}
+                  isDisabled={isDisabled}
+                ></TextArea>
+              );
+            }
             return (
-              <TextArea
-                {...item}
-                key={index}
-                isDisabled={isDisabled}
-              ></TextArea>
+              <Input {...item} key={index} isDisabled={isDisabled}></Input>
             );
-          }
-          return <Input {...item} key={index} isDisabled={isDisabled}></Input>;
-        })}
-        <div>
-          <button type="submit">Submit</button>
-          <button type="button" onClick={handleEdit}>
-            Edit
-          </button>
-        </div>
-      </fieldset>
-    </form>
-  );
+          })}
+          <div>
+            <button type="submit">Submit</button>
+            <button type="button" onClick={handleEdit}>
+              Edit
+            </button>
+          </div>
+        </fieldset>
+      </form>)
+ 
+  
 }
 
 function Input({ label, type, name, id, isDisabled }) {
