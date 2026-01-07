@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Form from "./components/Form";
 
 import "./App.css";
 
@@ -139,30 +140,6 @@ function App() {
         </section>
       </div>
     </>
-  );
-}
-
-function Form({ title, inputs, handleChange }) {
-  return (
-    <form action="" autoComplete="on" className="form">
-      <fieldset>
-        <legend>{title}</legend>
-        {inputs.map((item, index) => {
-          return (
-            <Input {...item} key={index} handleChange={handleChange}></Input>
-          );
-        })}
-      </fieldset>
-    </form>
-  );
-}
-
-function Input({ label, type, name, id, handleChange }) {
-  return (
-    <label htmlFor={id}>
-      {label + " "}
-      <input type={type} name={name} id={id} onChange={handleChange} />
-    </label>
   );
 }
 
